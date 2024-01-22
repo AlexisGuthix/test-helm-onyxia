@@ -22,8 +22,8 @@ onyxia:
         {
           "severity": "error",
           "message": {
-            "en": "Personal interactive services (vscode, rstudio and jupyter) older than 15 days will be deleted every week-end starting 20/01/2024. Please keep a backup for your code or data",
-            "fr": "A compter du 20/01/2024, les services interactifs personnels (vscode, rstudio et jupyter) seront supprimés tous les week end, pensez à sauvegarder vos codes et données"
+            "en": "",
+            "fr": ""
          }
         }
       PALETTE_OVERRIDE: |
@@ -99,91 +99,30 @@ onyxia:
           "id": "ide",
           "name": "Interactive services",
           "description": "IDE for datascientists.",
-          "maintainer": "innovation@insee.fr",
+          "maintainer": "support@groupe-genes.fr",
           "location": "https://inseefrlab.github.io/helm-charts-interactive-services",
           "status": "PROD",
           "highlightedCharts":
             [
-              "jupyter-python",
               "rstudio",
-              "vscode-python",
-              "jupyter-pyspark",
-              "jupyter-python-gpu",
-              "jupyter-pytorch-gpu",
-              "jupyter-pytorch",
-              "jupyter-r",
-              "jupyter-tensorflow-gpu",
-              "jupyter-tensorflow",
-              "rstudio-gpu",
-              "rstudio-sparkr",
-              "vscode-pyspark",
-              "vscode-python-gpu",
-              "vscode-pytorch-gpu",
-              "vscode-pytorch",
-              "vscode-r-python-julia",
-              "vscode-tensorflow-gpu",
-              "vscode-tensorflow",
+              "vscode-python"
             ],
           "type": "helm",
+
         },
-        {
-          "id": "databases",
-          "name": "Databases",
+         {
+          "id": "experimental",
+          "name": "Experimental",
           "description": "Databases services.",
-          "maintainer": "innovation@insee.fr",
+          "maintainer": "support@groupe-genes.fr",
           "location": "https://inseefrlab.github.io/helm-charts-databases",
           "status": "PROD",
           "highlightedCharts":
             [
               "postgresql",
-              "elastic",
-              "hive-metastore",
-              "kafka",
-              "trino",
-              "spark-thrift-server",
-              "jena",
-              "lakefs",
-              "mariadb",
-              "mongodb",
-              "neo4j",
-              "nocodb",
-              "pgadmin",
-              "pinot",
-              "spark-history",
-              "cloudbeaver",
-              "metabase",
             ],
           "type": "helm",
         },
-        {
-          "id": "automation",
-          "name": "Automation",
-          "description": "AIOps & MLOps services.",
-          "maintainer": "innovation@insee.fr",
-          "location": "https://inseefrlab.github.io/helm-charts-automation",
-          "status": "PROD",
-          "highlightedCharts":
-            ["argo-workflows", "mlflow", "metaflow", "argo-cd", "label-studio"],
-          "type": "helm",
-        },
-        {
-          "id": "divers",
-          "name": "Experimental",
-          "description": "Services divers.",
-          "maintainer": "innovation@insee.fr",
-          "location": "https://inseefrlab.github.io/helm-charts-miscellaneous",
-          "status": "PROD",
-          "type": "helm",
-        },
-        {
-          "id": "dataviz",
-          "name": "Dataviz",
-          "description": "Data visualization services.",
-          "maintainer": "innovation@insee.fr",
-          "location": "https://inseefrlab.github.io/helm-charts-datavisualization",
-          "status": "PROD",
-          "type": "helm",
-        }
       ]
     regions:
       [
