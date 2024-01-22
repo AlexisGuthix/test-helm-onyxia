@@ -1,0 +1,255 @@
+onyxia:
+  serviceAccount:
+    clusterAdmin: true
+  ingress:
+    enabled: true
+    # The name of the Ingress Class associated with this ingress
+    ingressClassName: "nginx"
+    hosts:
+      - host: kube.groupe-genes.fr
+      - host: onyxia.lab.groupe-genes.fr
+    tls:
+      - hosts:
+          - kube.groupe-genes.fr
+          - onyxia.lab.groupe-genes.fr
+  web:
+    serviceAccount:
+      create: true
+      clusterAdmin: true
+    replicaCount: 2
+    env:
+      GLOBAL_ALERT: |
+        {
+          "severity": "error",
+          "message": {
+            "en": "Personal interactive services (vscode, rstudio and jupyter) older than 15 days will be deleted every week-end starting 20/01/2024. Please keep a backup for your code or data",
+            "fr": "A compter du 20/01/2024, les services interactifs personnels (vscode, rstudio et jupyter) seront supprimés tous les week end, pensez à sauvegarder vos codes et données"
+         }
+        }
+      PALETTE_OVERRIDE: |
+        {
+          "focus": {
+              "main": "#66135e",
+              "light": "#8e2d8a",
+              "light2": "#c464bb"
+          },
+          "dark": {
+              "main": "#2C323F",
+              "light": "#373E4F",
+              "greyVariant1": "#242C39",
+              "greyVariant2": "#5A6270",
+              "greyVariant3": "#8A9099",
+              "greyVariant4": "#B8BABF",
+              "accent": "#66135e"
+          },
+          "light": {
+              "main": "#F1F0EB",
+              "light": "#FDFDFC",
+              "greyVariant1": "#E6E6E6",
+              "greyVariant2": "#C9C9C9",
+              "greyVariant3": "#9E9E9E",
+              "greyVariant4": "#747474",
+              "accent": "#66135e"
+          },
+          "redError": {
+              "main": "#CC0B0B",
+              "light": "#FEECEB"
+          },
+          "greenSuccess": {
+              "main": "#29CC2F",
+              "light": "#EEFAEE"
+          },
+          "orangeWarning": {
+              "main": "#FF8800",
+              "light": "#FFF5E5"
+          },
+          "blueInfo": {
+              "main": "#2196F3",
+              "light": "#E9F5FE"
+          }
+        }
+      HEADER_ORGANIZATION: Datalab du GENES
+      HEADER_USECASE_DESCRIPTION: Environnement pour la formation et la recherche
+      HEADER_HIDE_ONYXIA: true
+      HEADER_LINKS: |
+            [
+                { 
+                "label": { 
+                    "en": "Join us on Teams",
+                    "fr": "Rejoignez nous sur Teams"
+                }, 
+                "icon": "Groups2", 
+                "url": "https://teams.microsoft.com/l/team/19%3ak2a7PAYG-0EO6vmypa7sBdB5hXUR5c3YBDcszO0wCe41%40thread.tacv2/conversations?groupId=050057b4-2f34-4149-9084-5cd8f14b48e5&tenantId=99578065-47e8-4c36-bbf8-4e1228cfb056" 
+                }
+            ]
+  api:
+    serviceAccount:
+      create: true
+      clusterAdmin: true
+    replicaCount: 2
+    env:
+      authentication.mode: openidconnect
+      oidc.issuer-uri: "https://auth.groupe-genes.fr/realms/genes"
+      oidc.clientID: "onyxia"
+      oidc.audience: "onyxia"
+      catalog.refresh.ms: "300000"
+    catalogs:
+      [
+        {
+          "id": "ide",
+          "name": "Interactive services",
+          "description": "IDE for datascientists.",
+          "maintainer": "innovation@insee.fr",
+          "location": "https://inseefrlab.github.io/helm-charts-interactive-services",
+          "status": "PROD",
+          "highlightedCharts":
+            [
+              "jupyter-python",
+              "rstudio",
+              "vscode-python",
+              "jupyter-pyspark",
+              "jupyter-python-gpu",
+              "jupyter-pytorch-gpu",
+              "jupyter-pytorch",
+              "jupyter-r",
+              "jupyter-tensorflow-gpu",
+              "jupyter-tensorflow",
+              "rstudio-gpu",
+              "rstudio-sparkr",
+              "vscode-pyspark",
+              "vscode-python-gpu",
+              "vscode-pytorch-gpu",
+              "vscode-pytorch",
+              "vscode-r-python-julia",
+              "vscode-tensorflow-gpu",
+              "vscode-tensorflow",
+            ],
+          "type": "helm",
+        },
+        {
+          "id": "databases",
+          "name": "Databases",
+          "description": "Databases services.",
+          "maintainer": "innovation@insee.fr",
+          "location": "https://inseefrlab.github.io/helm-charts-databases",
+          "status": "PROD",
+          "highlightedCharts":
+            [
+              "postgresql",
+              "elastic",
+              "hive-metastore",
+              "kafka",
+              "trino",
+              "spark-thrift-server",
+              "jena",
+              "lakefs",
+              "mariadb",
+              "mongodb",
+              "neo4j",
+              "nocodb",
+              "pgadmin",
+              "pinot",
+              "spark-history",
+              "cloudbeaver",
+              "metabase",
+            ],
+          "type": "helm",
+        },
+        {
+          "id": "automation",
+          "name": "Automation",
+          "description": "AIOps & MLOps services.",
+          "maintainer": "innovation@insee.fr",
+          "location": "https://inseefrlab.github.io/helm-charts-automation",
+          "status": "PROD",
+          "highlightedCharts":
+            ["argo-workflows", "mlflow", "metaflow", "argo-cd", "label-studio"],
+          "type": "helm",
+        },
+        {
+          "id": "divers",
+          "name": "Experimental",
+          "description": "Services divers.",
+          "maintainer": "innovation@insee.fr",
+          "location": "https://inseefrlab.github.io/helm-charts-miscellaneous",
+          "status": "PROD",
+          "type": "helm",
+        },
+        {
+          "id": "dataviz",
+          "name": "Dataviz",
+          "description": "Data visualization services.",
+          "maintainer": "innovation@insee.fr",
+          "location": "https://inseefrlab.github.io/helm-charts-datavisualization",
+          "status": "PROD",
+          "type": "helm",
+        }
+      ]
+    regions:
+      [
+        {
+          "id": "PALAISEAU",
+          "name": "Palaiseau",
+          "description": "Région Palaiseau",
+          "includedGroupPattern": "kube-.*",
+          "services":
+            {
+              "type": "KUBERNETES",
+              "singleNamespace": false,
+              "namespacePrefix": "user-",
+              "usernamePrefix": "oidc-",
+              "groupNamespacePrefix": "projet-",
+              "groupPrefix": "oidc-",
+              "authenticationMode": "serviceAccount",
+              "expose": { "domain": "lab.groupe-genes.fr", "ingressClassName": "nginx" },
+              "monitoring":
+                {
+                  "URLPattern": "https://grafana.lab.groupe-genes.fr/d/kYYgRWBMz/users-services?orgId=1&refresh=5s&var-namespace=$NAMESPACE&var-instance=$INSTANCE",
+                },
+              "cloudshell":
+                {
+                  "catalogId": "inseefrlab-helm-charts-datascience",
+                  "packageName": "cloudshell",
+                },
+               "quotas":
+                {
+                  "enabled": true,
+                  "allowUserModification": false,
+                  "default": { 
+                    "requests.storage": "100Gi", 
+                    "count/pods": "10",
+                    "requests.nvidia.com/gpu": 1,
+                    "requests.cpu": 20,
+                    "requests.memory": "50Gi"
+                  },
+                },
+              "initScript": "https://inseefrlab.github.io/onyxia/onyxia-init.sh",
+            },
+          "data":
+            { "S3":{
+                 "type": "minio",
+                  "URL": "https://minio-simple.lab.groupe-genes.fr",
+                  "region": "us-east-1",
+                  "bucketPrefix": "",
+                  "groupBucketPrefix": "projet-",
+                  "bucketClaim": "preferred_username",
+                  "defaultDurationSeconds": 86400,
+                  "oidcConfiguration":
+                    {
+                      "issuerURI": "https://auth.groupe-genes.fr/realms/genes",
+                      "clientID": "onyxia-minio",
+                    },
+                  "acceptBucketCreation": true,
+             }
+            },
+          "vault":
+            {
+              "URL": "https://vault.lab.groupe-genes.fr",
+              "kvEngine": "onyxia-kv",
+              "role": "onyxia-user",
+            },
+          "auth": { "type": "openidconnect" },
+          "location":
+            { "lat": 48.71078, "long": 2.20718, "name": "Palaiseau (France)" },
+        },
+      ]
